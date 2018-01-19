@@ -10,6 +10,8 @@
 # ****************************************************************************/
 package main
 
+import "math"
+
 func DoSomething() float32 {
-	return 3.14
+	return math.Pi
 }
