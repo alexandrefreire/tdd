@@ -15,13 +15,17 @@ import (
 	"math"
 )
 
-const PRECISION = 0.001
 
 func TestCompareToSelf(t *testing.T) {
-	actual := float64(DoSomething())
-	expected := 3.141
-	diff := math.Abs(actual - expected)
-	if  diff > PRECISION  {
+	if  floatEquals(float64(DoSomething()), 3.142)  {
 		t.Fail()
 	}
+}
+
+const ε float64 = 0.001
+func floatEquals(a, b float64) bool {
+	if math.Abs(a - b) > ε  {
+		return true
+	}
+	return false
 }
