@@ -10,10 +10,18 @@
 # ****************************************************************************/
 package main
 
-import "testing"
+import (
+	"testing"
+	"math"
+)
+
+const PRECISION = 0.001
 
 func TestCompareToSelf(t *testing.T) {
-	if 3.14 != DoSomething() {
+	actual := float64(DoSomething())
+	expected := 3.141
+	diff := math.Abs(actual - expected)
+	if  diff > PRECISION  {
 		t.Fail()
 	}
 }
