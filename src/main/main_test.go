@@ -16,7 +16,7 @@ import (
 )
 
 
-func TestCompareToSelf(t *testing.T) {
+func TestSomething(t *testing.T) {
 	if  floatEquals(float64(DoSomething()), 3.142)  {
 		t.Fail()
 	}
