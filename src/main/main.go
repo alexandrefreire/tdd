@@ -12,6 +12,30 @@ package main
 
 import "math"
 
-func DoSomething() float32 {
-	return math.Pi
+func CalculateBonus(sales, quota, commission, tax int) float64 {
+	taxPercentage := percentage(100-tax)
+	return bonusWithCommission(commission, sales, quota) * taxPercentage
+}
+
+func bonusWithCommission(commission int, sales int, quota int) float64 {
+	commissionPercentage := percentage(commission)
+	bonus := baseBonus(sales, quota)
+	bonusWithCommission := bonus * commissionPercentage
+	return bonusWithCommission
+}
+
+
+func baseBonus(sales int, quota int) float64 {
+	return math.Max(float64(sales-quota), 0)
+}
+
+func percentage(value int) float64 {
+	return float64(value) / 100.0
+}
+
+func CalculateTeamBonus(sales, quota, members, commission int) float64 {
+	if members <= 0 {
+		return 0
+	}
+	return bonusWithCommission( commission, sales, quota )/ float64(members)
 }

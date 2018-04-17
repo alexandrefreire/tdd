@@ -16,13 +16,62 @@ import (
 )
 
 
-func TestSomething(t *testing.T) {
-	if  floatEquals(float64(DoSomething()), 3.142)  {
+func TestGotMyBonus(t *testing.T) {
+	if  floatEquals(CalculateBonus(200, 100, 100, 0), 100.0)  {
+		t.Fail()
+	}
+}
+
+func TestGotNoBonusMatchQuota(t *testing.T) {
+	if floatEquals(CalculateBonus(200, 200, 100, 0), 0.0) {
+		t.Fail()
+	}
+}
+
+func TestGotNoBonusBelowQuota(t *testing.T) {
+    if  floatEquals(CalculateBonus(300, 400, 100, 0), 0.0)  {
+		t.Fail()
+	}
+}
+
+func TestBonusWithCommission(t *testing.T) {
+	if  floatEquals(CalculateBonus(200, 100, 50, 0), 50.0)  {
+		t.Fail()
+	}
+}
+
+func TestBonusWithCommissionAndTax(t *testing.T) {
+	if  floatEquals(CalculateBonus(200, 100, 50, 10), 45.0)  {
+		t.Fail()
+	}
+}
+
+func TestNoBonusWithCommission(t *testing.T) {
+	if  floatEquals(CalculateBonus(200, 300, -50, 0), 0.0)  {
+		t.Fail()
+	}
+}
+
+func TestGotTeamBonus(t *testing.T) {
+	if  floatEquals(CalculateTeamBonus(200, 100, 4,100), 25.0)  {
+		t.Fail()
+	}
+}
+
+func TestNoTeamBonus(t *testing.T) {
+	if  floatEquals(CalculateTeamBonus(200, 100, 0, 100), 0)  {
+		t.Fail()
+	}
+}
+
+func TestTeamBonusWithCommission(t *testing.T) {
+	if  floatEquals(CalculateTeamBonus(300, 100, 2, 80), 80)  {
 		t.Fail()
 	}
 }
 
 const ε float64 = 0.001
+
 func floatEquals(a, b float64) bool {
 	if math.Abs(a - b) > ε  {
 		return true
